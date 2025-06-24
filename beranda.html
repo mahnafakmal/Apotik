@@ -1,71 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Beranda - Apotek Sehati</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda - Apotek Sehati</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="profil.html">Profil</a></li>
-                <li><a href="beranda.html">Beranda</a></li>
-                <li><a href="aboutus.html">Kontak</a></li>
-                <li><a href="login.html">Login</a>a</li>
-            </ul>
-        </nav>
-    </header> 
-       <h1 align="center">Selamat Datang di Apotek Sehati</h1>
-    
-       <div class="search-bar" align="center">
-        <input type="text" placeholder="Cari obat...">
-        <button type="submit">Cari</button>
-       </div>
-    <!-- Ringkasan Layanan -->
-    <selection class="services" style="max-width: 800px; margin: auto; padding: 2em;
-        <h2 style="text-align: center; color: #12086e;"> Layanan Kami</h2>
-        <ul style="list-style: none; padding: 0; line-height: 1.8;">
-            <li>Penjualan Obat bebas dan resep</li>
-            <li>Pemesanan Obat secara online</li>
-            <li>Cek Keaslian dan Legalitas obat</li>
+  <header>
+    <div class="container">
+      <h1>Apotek Sehati</h1>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="beranda.html" class="active">Beranda</a></li>
+          <li><a href="profil.html">Profil</a></li>
+          <li><a href="aboutus.html">Tentang Kami</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
-    </selection>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Daftar Obat -->
-    <selection class="medicine-list"max-width: 900px; margin: auto; padding 2em;">
-        <h2 style="text align: center; color: #12086e;"> Berbagai Jenis Obat</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px.1fr)); gap: 1.5em; margin-top: 1.5em;">
-            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 1em; text-align: center;">
-                <h3>Paracetamol</h3>
-                <p>Obat penurun demam dan pereda nyeri.</p>
-            </div>
-            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 1em; text-align: center;">
-                <h3>Amoxicillin</h3>
-                <p>Antibiotik untuk infeksi bakteri.</p>
-            </div>
-            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 1em; text-align: center;">
-                <h3>Antasida</h3>
-                <p>Mengatasi maag dan asam lambung.</p>
-            </div>
-            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 1em; text align: center;">
-                <h3>Loratadine</h3>
-                <p>Obat alergi gatal dan bersin.</p>
-            </div>
-            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 1em; text-align: center;">
-                <h3>Vitamin C</h3>
-                <p>Menjaga daya tahan tubuh.</p>
-            </div>
+  <main class="container">
+    <section class="hero">
+      <h2>Selamat Datang di Apotek Sehati</h2>
+      <p>Kesehatan Anda, Prioritas Kami</p>
+      <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Cari obat...">
+          <button type="button" onclick="cariObat()">Cari</button>
+      </div>
+    </section>
+
+    <section class="services">
+      <h2>Layanan Kami</h2>
+      <ul>
+        <li>✔️ Penjualan obat bebas dan resep</li>
+        <li>✔️ Konsultasi dengan apoteker profesional</li>
+        <li>✔️ Layanan antar obat ke rumah</li>
+        <li>✔️ Pemesanan obat secara online</li>
+        <li>✔️ Cek keaslian dan legalitas obat</li>
+      </ul>
+    </section>
+
+    <section class="medicine-list">
+      <h2 class="section-title">Berbagai Jenis Obat</h2>
+      <div class="medicine-grid">
+        <div class="medicine-card" id="obat-paracetamol">
+          <h3>Paracetamol</h3>
+          <img src="https://foto.kontan.co.id/t8OJMlMtmWz6uNTDl2Sac-1Uhtc=/smart/2021/06/27/1724118841p.jpg" alt="Paracetamol" />
+          <p>Obat penurun demam dan pereda nyeri.</p>
+          <p><strong>Harga:</strong> Rp5.765</p>
+          <p><strong>Stok:</strong> Tersedia</p>
         </div>
-    </selection>
-</main>
+        <div class="medicine-card" id="obat-amoxicillin">
+          <h3>Amoxicillin</h3>
+          <img src="https://statics.indozone.news/local/62bb0857d4df6.jpg" alt="Amoxicillin" />
+          <p>Antibiotik untuk infeksi bakteri.</p>
+          <p><strong>Harga:</strong> Rp12.000</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+        </div>
+        <div class="medicine-card" id="obat-loratadine">
+          <h3>Loratadine</h3>
+          <img src="https://img-cdn.medkomtek.com/RPyW9Wn9R3KKYtOIA5V3cJXsYpk=/0x0/smart/filters:quality(75):strip_icc():format(webp)/drugs/hHOd529y8FfZPTV1F6DqQ/original/OBT0008473.jpg" alt="Loratadine" />
+          <p>Obat alergi untuk gatal dan bersin.</p>
+          <p><strong>Harga:</strong> Rp8.500</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+        </div>
+        <div class="medicine-card" id="obat-vitamin-c">
+          <h3>Vitamin C</h3>
+          <img src="https://cf.shopee.co.id/file/5742cbd2c9297aa2c4a60f118072419c" alt="Vitamin C" />
+          <p>Menjaga daya tahan tubuh.</p>
+          <p><strong>Harga:</strong> Rp15.000</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+        </div>
+        <div class="medicine-card" id="obat-omeprazole">
+          <h3>Omeprazole</h3>
+          <img src="https://mhomecare.co.id/blog/wp-content/uploads/2021/10/Omeprazole.jpg" alt="Omeprazole" />
+          <p>Obat untuk mengatasi maag dan asam lambung.</p>
+          <p><strong>Harga:</strong> Rp20.000</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+      </div>
+        <div class="medicine-card" id="obat-metformin">
+          <h3>Metformin</h3>
+          <img src="https://storage.googleapis.com/rxstorage/Product/large/Apotek_Online_Farmaku_com_Metformin_500_Mg_Tab_Hexp.jpg" alt="Metformin" />
+          <p>Obat diabetes untuk mengontrol gula darah.</p>
+          <p><strong>Harga:</strong> Rp25.000</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+        </div>
+        <div class="medicine-card" id="obat-ibuprofen">
+          <h3>Ibuprofen</h3>
+          <img src="https://medfriend.id/asset/foto_produk/ibuprofen.jpg" alt="Ibuprofen" />
+          <p>Obat antiinflamasi non-steroid untuk nyeri.</p>
+          <p><strong>Harga:</strong> Rp10.000</p>
+          <p><strong>Stok:</strong> Tersedia</p>
+        </div>
+        </div>
+    </section>
+  </main>
 
-    <footer>
-        <p style="text-align: center;">%copy; 2025 Apotek Sehati</p>
-    </footer>
-    
-            
-    
+  <footer>
+    <p>&copy; 2025 Apotek Sehati. All rights reserved.</p>
+  </footer>
 </body>
+<script>
+function cariObat() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".medicine-card");
+  let matchFound = false;
+
+  cards.forEach(card => {
+    const namaObat = card.querySelector("h3").textContent.toLowerCase();
+
+    if (namaObat.includes(input)) {
+      // Scroll ke elemen dan beri efek highlight
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.classList.add("highlight");
+
+      setTimeout(() => card.classList.remove("highlight"), 2000);
+      matchFound = true;
+    }
+  });
+
+  // Jika tidak ditemukan
+  if (!matchFound) {
+    alert("Obat tidak ditemukan!");
+  }
+}
+</script>
 </html>
