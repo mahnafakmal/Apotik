@@ -1,0 +1,67 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #dceeff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #005baf;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Formulir Pembelian Obat</h2>
+    <form action="konfirmasi.html" method="get">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" name="nama" required>
+
+      <label for="alamat">Alamat Pengiriman</label>
+      <textarea id="alamat" name="alamat" rows="3" required></textarea>
+
+      <label for="obat">Nama Obat</label>
+      <sel
