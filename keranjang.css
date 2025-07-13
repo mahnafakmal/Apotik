@@ -68,28 +68,3 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <h2>Keranjang Belanja - Apotek Sehati</h2>
-
-    <div class="item" data-price="25000">
-        <div class="item-name">Paracetamol 500mg</div>
-        <div class="item-controls">
-            <button onclick="updateQuantity(this, -1)">-</button>
-            <span class="quantity">1</span>
-            <button onclick="updateQuantity(this, 1)">+</button>
-        </div>
-    </div>
-
-    <div class="item" data-price="40000">
-        <div class="item-name">Vitamin C 1000mg</div>
-        <div class="item-controls">
-            <button onclick="updateQuantity(this, -1)">-</button>
-            <span class="quantity">1</span>
-            <button onclick="updateQuantity(this, 1)">+</button>
-        </div>
-    </div>
-
-    <div class="total">Total: Rp <span id="total">65000</span></div>
