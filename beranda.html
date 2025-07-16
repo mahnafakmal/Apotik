@@ -50,6 +50,16 @@
         <!-- Obat-obatan akan ditampilkan di sini -->
       </div>
     </section>
+
+    <section class="cart-section">
+      <h2>Keranjang Belanja</h2>
+      <div class="cart-items" id="cartItems">
+        <p>Belum ada obat di keranjang.</p>
+      </div>
+      <nav>
+        <a href="beli.html" class="buy-button">Beli Sekarang</a>
+      </nav>
+    </section>
   </main>
 
   <footer>
@@ -84,6 +94,36 @@
         `;
         container.appendChild(div);
       });
+    }
+
+    function tambahKeKeranjang(nama, harga) {
+      keranjang.push({ nama, harga });
+      renderKeranjang();
+    }
+
+    function renderKeranjang() {
+      const cartContainer = document.getElementById("cartItems");
+      cartContainer.innerHTML = "";
+      if (keranjang.length === 0) {
+        cartContainer.innerHTML = "<p>Belum ada obat di keranjang.</p>";
+        return;
+      }
+      keranjang.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.textContent = `${item.nama} - ${item.harga}`;
+        cartContainer.appendChild(div);
+      });
+    }
+
+    function beliSekarang() {
+      if (keranjang.length === 0) {
+        alert("Keranjang kosong. Tambahkan obat terlebih dahulu.");
+        return;
+      }
+      alert("Terima kasih telah membeli di Apotek Sehati!");
+      keranjang.length = 0;
+      renderKeranjang();
     }
 
     function cariObat() {
