@@ -152,3 +152,30 @@ footer {
 .buy-button:hover {
         background-color: #1c1c9e;
     }
+
+    .cart-section {
+      margin-top: 3em;
+      background-color: #f0f4f8;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .cart-items {
+      margin-bottom: 1em;
+    }
+    .cart-item {
+      padding: 0.5em 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .buy-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .buy-button:hover {
+      background-color: #0056b3;
+    }
