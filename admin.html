@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manajemen Obat</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style khusus untuk halaman admin */
+        .admin-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .form-card, .table-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f3f4f6;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Manajemen Obat</h1>
+            <nav>
+                <a href="index.html">Lihat Toko</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-container">
+
+        <section class="form-card">
+            <h2 id="form-title">Tambah Obat Baru</h2>
+            <form id="obat-form">
+                <input type="hidden" id="obat-id">
+                <div class="form-grid">
+                    <div>
+                        <label for="nama-obat">Nama Obat</label>
+                        <input type="text" id="nama-obat" required>
+                    </div>
+                    <div>
+                        <label for="harga-obat">Harga (Rp)</label>
+                        <input type="number" id="harga-obat" required>
+                    </div>
+                    <div>
+                        <label for="stok-obat">Stok</label>
+                        <input type="number" id="stok-obat" required>
+                    </div>
+                     <div>
+                        <label for="gambar-obat">URL Gambar</label>
+                        <input type="text" id="gambar-obat" required>
+                    </div>
+                    <div class="full-width">
+                        <label for="deskripsi-obat">Deskripsi</label>
+                        <textarea id="deskripsi-obat" rows="3"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Simpan</button>
+                <button type="button" class="btn" id="cancel-edit" style="display: none; background-color: #6b7280;">Batal Edit</button>
+            </form>
+        </section>
+
+        <section class="table-card">
+            <h2>Daftar Stok Obat</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama Obat</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="obat-list">
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- PROTEKSI HALAMAN SEDERHANA ---
+            const checkAdminAccess = () => {
+                const password = prompt("Masukkan kata sandi admin:", "");
+                // Ganti 'admin123' dengan kata sandi yang Anda inginkan
+                if (password !== "admin123") {
+                    alert("Kata sandi salah! Anda akan dikembalikan ke halaman utama.");
+                    window.location.href = 'index.html';
+                }
+            };
+            
+            checkAdminAccess();
+
+
+            // --- ELEMEN DOM ---
+            const obatForm = document.getElementById('obat-form');
+            const formTitle = document.getElementById('form-title');
+            const obatIdInput = document.getElementById('obat-id');
+            const namaInput = document.getElementById('nama-obat');
+            const hargaInput = document.getElementById('harga-obat');
+            const stokInput = document.getElementById('stok-obat');
+            const gambarInput = document.getElementById('gambar-obat');
+            const deskripsiInput = document.getElementById('deskripsi-obat');
+            const cancelEditBtn = document.getElementById('cancel-edit');
+            const obatListBody = document.getElementById('obat-list');
+
+            // --- STATE & LOCALSTORAGE ---
+            let medicines = JSON.parse(localStorage.getItem('medicines')) || [];
+
+            const saveMedicines = () => {
+                localStorage.setItem('medicines', JSON.stringify(medicines));
+            };
+
+            const formatRupiah = (angka) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+            
+            // --- RENDER FUNCTION ---
+            const renderObatList = () => {
+                obatListBody.innerHTML = '';
+                if (medicines.length === 0) {
+                    obatListBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada data obat.</td></tr>';
+                    return;
+                }
+                medicines.forEach((obat) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${obat.nama}</td>
+                        <td>${formatRupiah(obat.harga)}</td>
+                        <td>${obat.stok}</td>
+                        <td class="action-buttons">
+                            <button class="btn" data-id="${obat.id}">Edit</button>
+                            <button class="btn btn-delete" data-id="${obat.id}">Hapus</button>
+                        </td>
+                    `;
+                    obatListBody.appendChild(row);
+                });
+            };
+
+            // --- CRUD LOGIC ---
+
+            // Create & Update
+            obatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = obatIdInput.value;
+                const newObatData = {
+                    nama: namaInput.value,
+                    harga: parseInt(hargaInput.value),
+                    stok: parseInt(stokInput.value),
+                    img: gambarInput.value,
+                    desc: deskripsiInput.value,
+                };
+
+                if (id) { // Mode Update
+                    const index = medicines.findIndex(m => m.id === id);
+                    if (index !== -1) {
+                        medicines[index] = { ...medicines[index], ...newObatData };
+                    }
+                } else { // Mode Create
+                    newObatData.id = 'med-' + Date.now(); // Generate ID unik
+                    medicines.push(newObatData);
+                }
+
+                saveMedicines();
+                renderObatList();
+                resetForm();
+            });
+
+            // Edit & Delete
+            obatListBody.addEventListener('click', (e) => {
+                const id = e.target.dataset.id;
+                if (!id) return;
+
+                if (e.target.classList.contains('btn-delete')) { // Delete
+                    if (confirm('Apakah Anda yakin ingin menghapus obat ini?')) {
+                        medicines = medicines.filter(m => m.id !== id);
+                        saveMedicines();
+                        renderObatList();
+                    }
+                } else if (e.target.classList.contains('btn')) { // Edit
+                    const obatToEdit = medicines.find(m => m.id === id);
+                    if (obatToEdit) {
+                        formTitle.textContent = 'Edit Data Obat';
+                        obatIdInput.value = obatToEdit.id;
+                        namaInput.value = obatToEdit.nama;
+                        hargaInput.value = obatToEdit.harga;
+                        stokInput.value = obatToEdit.stok;
+                        gambarInput.value = obatToEdit.img;
+                        deskripsiInput.value = obatToEdit.desc;
+                        cancelEditBtn.style.display = 'inline-block';
+                        window.scrollTo(0, 0); // Scroll ke atas untuk melihat form
+                    }
+                }
+            });
+            
+            const resetForm = () => {
+                formTitle.textContent = 'Tambah Obat Baru';
+                obatForm.reset();
+                obatIdInput.value = '';
+                cancelEditBtn.style.display = 'none';
+            }
+            
+            cancelEditBtn.addEventListener('click', resetForm);
+
+            // --- INITIAL LOAD ---
+            renderObatList();
+        });
+
+    </script>
+</body>
+</html>
